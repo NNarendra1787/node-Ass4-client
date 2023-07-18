@@ -1,36 +1,37 @@
-import axios from "axios";
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 function Login() {
-  const navi = useNavigate();
-  const [info, setInfo] = useState({
-    email: "",
-    password: "",
-  });
-  // const [email, setEmail] = useState("");
-  // const [pass, setPass] = useState("");
+  // const [info, setInfo] = useState({
+  //   email: "",
+  //   password: "",
+  // });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   // console.log(typeof email);
 
-  const HandelChange = (e) => {
-    setInfo({ [e.target.name]: e.target.value });
-  };
+  const navi = useNavigate();
+  // const HandelChange = (e) => {
+  //   setInfo({ [e.target.name]: e.target.value });
+  // };
   async function submit(e) {
     e.preventDefault();
 
     try {
       const response = await axios.post(
         "https://node-assign4-data.onrender.com/Client/login",
-        data
+        { email, password }
       );
+
+      // setInfo({
+      //   email: "",
+      //   password: "",
+      // });
       const data = response.data;
+
       localStorage.setItem("token", data.token);
 
-      setInfo({
-        email: "",
-        password: "",
-      });
     } catch (err) {
       console.log(err);
     }
@@ -47,8 +48,10 @@ function Login() {
               type="email"
               placeholder="Enter your Email"
               autoComplete="off"
-              value={info.email}
-              onChange={HandelChange}
+              value={email}
+              onChange={(e)=>{
+                setEmail(e.target.value)
+              }}
             />
           </label>
           <label className="inp">
@@ -57,15 +60,17 @@ function Login() {
               type="password"
               placeholder="Enter password"
               autoComplete="off"
-              value={info.password}
-              onChange={HandelChange}
+              value={password}
+              onChange={(e)=>{
+                setPassword(e.target.value)
+              }}
             />
           </label>
           <button id="submit" onClick={submit}>
             Submit
           </button>
         </form>
-        <hr className="hrl"/>
+        <hr className="hrl" />
         <p
           onClick={() => {
             navi("/signup");

@@ -4,26 +4,28 @@ import axios from "axios";
 
 function Signup() {
   const [data, setData] = useState({
-    name:"",
-    email:"",
-    phone:"",
-    password:""
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
   });
   // const [email, setEmail] = useState("");
   // const [phone, setPhone] = useState("");
   // const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const HandelChange = (e)=>{
-    setData({[e.target.name] :  e.target.value});
-  }
+  const HandelChange = (e) => {
+    setData({ [e.target.name]: e.target.value });
+  };
   async function submit(e) {
-    // token = 
+    // token =
     e.preventDefault();
 
     try {
-      const response = await axios.post("https://node-assign4-data.onrender.com/Client/signup",
-      data);
+      const response = await axios.post(
+        "https://node-assign4-data.onrender.com/Client/signup",
+        data
+      );
 
       // {
       //   headers: {
@@ -31,14 +33,12 @@ function Signup() {
       //   },
       // },
 
- setData(
-  {
-    name:"",
-    email:"",
-    phone:"",
-    password:""
-  }
- )
+      setData({
+        name: "",
+        email: "",
+        phone: "",
+        password: "",
+      });
 
       console.log(response.data);
     } catch (err) {
@@ -46,7 +46,6 @@ function Signup() {
     }
     // console.log(name, email, phone, password);
   }
-
 
   return (
     <div>
@@ -67,7 +66,7 @@ function Signup() {
           </label>
           <label className="inp">
             Email:
-            <input 
+            <input
               type="email"
               name="Email"
               id="email"
@@ -105,7 +104,7 @@ function Signup() {
             Submit
           </button>
         </form>
-        <hr className="hrl"/>
+        <hr className="hrl" />
         <p
           onClick={() => {
             navigate("/login");
